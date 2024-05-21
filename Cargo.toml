@@ -1,0 +1,7 @@
+[package]
+name = "smf-viewer"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]
+gfxsrc = { git = "https://github.com/Virtcom/GfxSrc.git"}
