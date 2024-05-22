@@ -32,33 +32,8 @@ fn prepare_matrix() -> Matrix {
 
 
 fn showmatrix(mut matrix: Matrix){
-    if matrix.repeat == true {
-        loop {
-            for line in matrix.content.lines() {
-                let parts = line.split('-').collect::<Vec<&str>>();
-                if parts[0] == "OFF" {
-                    for i in 1..8{
-                        for u in 1..8{
-                            matrix.app.addstring(i*2, u, " ", "#FFFFFF")
-                        }
-                    }
-                } else if parts[0] == "ON" {
-                    for i in 1..8{
-                        for u in 1..8{
-                            matrix.app.addstring(i*2, u, "#", &matrix.color)
-                        }
-                    }
-                } else {
-                    for pixel in parts[0].split(',') {
-                        let possitions = pixel.split_whitespace().collect::<Vec<&str>>();
-                        matrix.app.addstring(((possitions[0].parse::<usize>().unwrap())+1)*2,(possitions[1].parse::<usize>().unwrap())+1, "#", &matrix.color);
-                    }
-                }
-                matrix.app.print();
-                thread::sleep(Duration::from_millis(parts[1].parse::<u64>().unwrap()));
-            }
-        }
-    } else {
+    let mut repeat = true;
+    while repeat == true{
         for line in matrix.content.lines() {
             let parts = line.split('-').collect::<Vec<&str>>();
             if parts[0] == "OFF" {
@@ -81,8 +56,9 @@ fn showmatrix(mut matrix: Matrix){
             }
             matrix.app.print();
             thread::sleep(Duration::from_millis(parts[1].parse::<u64>().unwrap()));
+            }
+        repeat = matrix.repeat;
         }
-    }
 }
 
 
